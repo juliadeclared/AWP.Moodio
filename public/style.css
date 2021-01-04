@@ -66,19 +66,68 @@ button:active {
 #console {
 	position: absolute;
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	font-weight: 600;
 	text-align: center;
-	font-size: 2em;
-	color: white;
+	color: #ffffff;
 	bottom: 0;
 	right: 0;
 	border-radius: 50%;
 	border: none;
-	font-size: 12px;
+	font-size: 30px;
+	text-shadow: 0 1px 1px #7cc4ca;
 	background-color: #9bf6ff;
 	height: 150px;
 	width: 150px;
 	margin: 8px;
 	padding: 12px 12px;
+}
+
+h1 {
+   font-weight: 600;
+	text-align: center;
+   color: #ffffff;
+   font-size: 60px;
+}
+
+.login-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 400px;
+	background-color: #fffffc;
+	margin: 8px;
+	padding: 12px 12px;
+   border-radius: 8px;
+}
+
+.login-footer {
+   text-align: center;
+   padding: 12px 12px;
+}
+
+.form-button {
+   background-color: #4caf50;
+   border-radius: 8px;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+.form-button:hover {
+   background-color: #fdffb6;
+   color: #4caf50
+}
+
+input {
+	width: 95%;
+	padding: 12px 20px;
+	margin: 8px 8px;
+	box-sizing: border-box;
+   border: none;
+   box-shadow: 0 1px 0;
 }

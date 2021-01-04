@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 
 class Main extends Component {
+   constructor(){
+      super()
+      this.state = {
+         loadingMessage: "Loading Video...", //figure this out later
+      }
+   }
+
 	componentDidMount() {
 		const classifier = knnClassifier.create();
 		const webcamElement = document.getElementById("webcam");
@@ -58,8 +65,8 @@ class Main extends Component {
 					const classes = ["Neutral", "Happy", "Sad"];
 					document.getElementById("console").innerText = `
         ${classes[result.label]}\n
-        probability: ${result.confidences[result.label]}
       `;
+					//probability: ${result.confidences[result.label]} <--to display probability
 					// Dispose the tensor to release the memory.
 					img.dispose();
 				}
@@ -83,7 +90,7 @@ class Main extends Component {
 						width="500"
 						height="500"
 					></video>
-					<div id="console"></div>
+					<div id="console">Mood</div>
 				</div>
 				<div className="button-contaier">
 					<button id="class-a">neutral</button>
