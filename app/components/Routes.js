@@ -12,7 +12,11 @@ const Routes = () => {
 	return (
 		<Router>
 			<div>
-				<nav></nav>
+				<nav>
+               <li>
+                  <Link to="/">Home</Link>
+               </li>
+            </nav>
 				<main>
 					<Switch>
 						<Route exact path="/" component={HomePage} />
