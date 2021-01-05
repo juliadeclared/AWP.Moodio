@@ -13,5 +13,5 @@ const db = require("./database");
 module.exports = {
 	// Include your models in this exports object as well!
    db,
-   User
+   User,
 };

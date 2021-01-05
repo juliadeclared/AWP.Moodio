@@ -1,8 +1,26 @@
 const express = require("express");
 const path = require("path");
 const volleyball = require("volleyball");
+// const compression = require("compression");
+const session = require("express-session");
+const passport = require("passport");
+// const db = require("./db");
+// const sessionStore = new SequelizeStore({ db });
+
 
 const app = express();
+
+// passport registration
+passport.serializeUser((user, done) => done(null, user.id));
+
+passport.deserializeUser(async (id, done) => {
+	try {
+		const user = await db.models.user.findByPk(id);
+		done(null, user);
+	} catch (err) {
+		done(err);
+	}
+});
 
 // logging middleware
 // Only use logging middleware when not running tests
@@ -16,7 +34,21 @@ app.use(express.urlencoded({ extended: true }));
 // static middleware
 app.use(express.static(path.join(__dirname, "../public")));
 
-app.use("/api", require("./api")); // include our routes!
+// session middleware with passport
+// app.use(
+// 	session({
+// 		secret: process.env.SESSION_SECRET || "my best friend is Cody",
+// 		store: sessionStore,
+// 		resave: false,
+// 		saveUninitialized: false,
+// 	})
+// );
+app.use(passport.initialize());
+// app.use(passport.session());
+
+// auth and api routes!
+app.use("/api", require("./api"));
+app.use("/auth", require("./auth"));
 
 app.get("*", (req, res) => {
 	res.sendFile(path.join(__dirname, "../public/index.html"));

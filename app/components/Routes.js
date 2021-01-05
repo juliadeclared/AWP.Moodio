@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import history from "../history";
 
 import Main from "./Main"
 import HomePage from "./HomePage"
@@ -10,7 +11,7 @@ import Signup from "./Signup";
 
 const Routes = () => {
 	return (
-		<Router>
+		<Router history={history}>
 			<div>
 				<nav>
                <li>

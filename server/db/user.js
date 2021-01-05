@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
-const { get } = require("../api");
+// const { get } = require("../api");
 const db = require("./database");
+const crypto = require("crypto");
 
 const User = db.define("user", {
 	email: {
