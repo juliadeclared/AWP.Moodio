@@ -8,9 +8,10 @@
 
 nav {
 	align-items: center;
-	background-color: #FFFFFC;
+	background-color: #fffffc;
 	color: #e8b5a8;
 	display: flex;
+	flex-direction: row;
 	justify-content: space-evenly;
 	height: 80px;
 	padding: 12px 20px;
@@ -27,12 +28,16 @@ li {
 	list-style-type: none;
 }
 
+nav a {
+	color: rgb(43, 41, 41);
+}
+
 nav li {
 	padding: 12px 12px;
 }
 
 nav li:hover {
-	background-color: #CAFFBF;
+	background-color: #caffbf;
 }
 
 body {
@@ -63,14 +68,14 @@ video {
 }
 
 .homepage-container {
-   display: flex;
+	display: flex;
 	flex-direction: column;
-   justify-content: center;
-   min-width: 400px;
+	justify-content: center;
+	min-width: 400px;
 	max-width: 600px;
 	margin: 8px;
 	padding: 12px 12px;
-   border-radius: 8px;
+	border-radius: 8px;
 }
 
 .button-container {
@@ -125,17 +130,17 @@ button:active {
 }
 
 h1 {
-   font-weight: 600;
+	font-weight: 600;
 	text-align: center;
-   color: #ffffff;
-   font-size: 60px;
+	color: #ffffff;
+	font-size: 60px;
 }
 
 h2 {
-   font-weight: 600;
+	font-weight: 600;
 	text-align: center;
-   color: #ffffff;
-   font-size: 30px;
+	color: #ffffff;
+	font-size: 30px;
 }
 
 .login-container {
@@ -146,33 +151,33 @@ h2 {
 	background-color: #fffffc;
 	margin: 8px;
 	padding: 12px 12px;
-   border-radius: 8px;
+	border-radius: 8px;
 }
 
 .login-footer {
-   text-align: center;
-   padding: 12px 12px;
+	text-align: center;
+	padding: 12px 12px;
 }
 
 .form-button {
-   background-color: #A0C4FF;
-   border-radius: 8px;
-   color: white;
-   font-size: large;
-   font-weight: 700;
+	background-color: #a0c4ff;
+	border-radius: 8px;
+	color: white;
+	font-size: large;
+	font-weight: 700;
 	padding: 14px 20px;
 	margin: 8px 0;
 	border: none;
 	cursor: pointer;
-   width: 100%;
+	width: 100%;
 }
 
 .form-button:hover {
-   background-color: #bed6fc;
+	background-color: #bed6fc;
 }
 
 .form-button a {
-   color: white;
+	color: white;
 }
 
 input {
@@ -180,6 +185,6 @@ input {
 	padding: 12px 20px;
 	margin: 8px 8px;
 	box-sizing: border-box;
-   border: none;
-   box-shadow: 0 1px 0;
+	border: none;
+	box-shadow: 0 1px 0;
 }

@@ -3,7 +3,7 @@ const User = require("../db/user");
 
 module.exports = router;
 
-router.post("/log-in", async (req, res, next) => {
+router.put("/log-in", async (req, res, next) => {
 	try {
 		const user = await User.findOne({ where: { email: req.body.email } });
 		if (!user) {

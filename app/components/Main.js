@@ -1,14 +1,24 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { me } from "../redux/user";
+import { Redirect } from "react-router-dom";
 
 class Main extends Component {
-   constructor(){
-      super()
-      this.state = {
-         loadingMessage: "Loading Video...", //figure this out later
-      }
-   }
+	constructor() {
+		super();
+		this.state = {
+			loadingMessage: "Loading Video...", //figure this out later
+		};
+	}
 
 	componentDidMount() {
+		try {
+			this.props.me();
+			console.log(this.props.user);
+		} catch (error) {
+			console.log(error);
+		}
+
 		const classifier = knnClassifier.create();
 		const webcamElement = document.getElementById("webcam");
 
@@ -16,7 +26,6 @@ class Main extends Component {
 
 		async function app() {
 			console.log("Loading mobilenet..");
-
 			// Load the model.
 			net = await mobilenet.load();
 			console.log("Successfully loaded model");
@@ -75,16 +84,21 @@ class Main extends Component {
 				await tf.nextFrame();
 			}
 		}
+		this.setState({ loadingMessage: "" });
 		app();
 	}
 
 	render() {
+		// if (!this.props.user.id) {
+		// 	return <Redirect to="/" />;
+		// } // this is not recognizing the user in state
 		return (
 			<div className="main">
 				<div className="video-container">
+					{this.state.loadingMessage}
 					<video
-						autoplay
-						playsinline
+						autoPlay
+						playsInline
 						muted
 						id="webcam"
 						width="500"
@@ -102,4 +116,16 @@ class Main extends Component {
 	}
 }
 
-export default Main;
+const mapState = (state) => {
+	return {
+		user: state.user,
+	};
+};
+
+const mapDispatch = (dispatch) => {
+	return {
+		me: () => dispatch(me()),
+	};
+};
+
+export default connect(mapState, mapDispatch)(Main);

@@ -1,37 +1,90 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { auth } from "../redux/user";
 
-export default class Login extends Component {
+class Login extends Component {
+	constructor() {
+      super();
+      this.state = {
+         email: "",
+         password: "",
+         //is this safe?
+         method: "log-in",
+         errorMessage: ""
+      }
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.changeHandler = this.changeHandler.bind(this);
+	}
+
+	changeHandler(e) {
+		this.setState({ [e.target.name]: e.target.value });
+	}
+
+	async handleSubmit(e) {
+      e.preventDefault();
+      const email = this.state.email
+      const password = this.state.password
+      const method = this.state.method
+      try {
+         await this.props.auth(email, password, method);
+      } catch (error) {
+         console.log(error)
+      }
+	}
+
 	render() {
+      const error = this.props.error
 		return (
 			<div className="main">
 				<div className="login-container">
 					<form>
-						<label for="username"></label>
+						<label htmlFor="email"></label>
 						<input
 							type="text"
-							placeholder="Enter Username"
-							name="username"
+							placeholder="Enter Email"
+							name="email"
 							required
+							onChange={this.changeHandler}
 						></input>
 
-						<label for="password"></label>
+						<label htmlFor="password"></label>
 						<input
 							type="password"
 							placeholder="Enter Password"
 							name="password"
 							required
+							onChange={this.changeHandler}
 						></input>
-						<button className="form-button" type="submit">
+						<button
+							className="form-button"
+							type="submit"
+							onClick={this.handleSubmit}
+						>
 							Log In
 						</button>
+						<div> {this.state.errorMessage} </div>
 					</form>
-               <div className="login-footer">
-                  <Link to="/sign-up">Create an Account</Link>
-               </div>
-					
+					<div className="login-footer">
+						<Link to="/sign-up">Create an Account</Link>
+					</div>
 				</div>
 			</div>
 		);
 	}
 }
+
+// const mapState = state => {
+//    return {
+
+//    }
+// }
+
+const mapDispatch = dispatch => {
+   return {
+			auth: (email, password, method) =>
+				dispatch(auth(email, password, method)),
+		};
+}
+
+export default connect(null, mapDispatch)(Login)

@@ -1,47 +1,100 @@
-import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { auth } from "../redux/user";
 
-export default class Signup extends Component {
-   render() {
-      return (
-				<div>
-					<div className="main">
-						<div className="login-container">
-							<form>
-								<label for="username"></label>
-								<input
-									type="text"
-									placeholder="Enter Username"
-									name="username"
-									required
-								></input>
+class Signup extends Component {
+	constructor() {
+		super();
+		this.state = {
+			email: "",
+			password: "",
+			confirmPassword: "",
+			method: "sign-up",
+			errorMessage: "",
+		};
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.changeHandler = this.changeHandler.bind(this);
+	}
 
-								<label for="password"></label>
-								<input
-									type="password"
-									placeholder="Enter Password"
-									name="password"
-									required
-								></input>
+	changeHandler(e) {
+		this.setState({ [e.target.name]: e.target.value });
+	}
 
-								<label for="password"></label>
-								<input
-									type="password"
-									placeholder="Confirm Password"
-									name="confirm-password"
-									required
-								></input>
+	async handleSubmit(e) {
+		e.preventDefault();
+		const email = this.state.email;
+		const password = this.state.password;
+		const confirmPassword = this.state.confirmPassword;
+		const method = this.state.method;
 
-								<button className="form-button" type="submit">
-									Sign Up
-								</button>
-							</form>
-							<div className="login-footer">
-								Already have an account? <Link to="/log-in">Log In</Link>
-							</div>
+		if (password === confirmPassword) {
+			try {
+				await this.props.auth(email, password, method);
+			} catch (error) {
+				this.setState({ errorMessage: error.response.data });
+			}
+		} else {
+         this.setState({errorMessage: "Passwords must match"})
+      }
+	}
+
+	render() {
+		return (
+			<div>
+				<div className="main">
+					<div className="login-container">
+						<form>
+							<label htmlFor="email"></label>
+							<input
+								type="text"
+								placeholder="Enter Email"
+								name="email"
+								required
+								onChange={this.changeHandler}
+							></input>
+
+							<label htmlFor="password"></label>
+							<input
+								type="password"
+								placeholder="Enter Password"
+								name="password"
+								required
+								onChange={this.changeHandler}
+							></input>
+
+							<label htmlFor="confirmPassword"></label>
+							<input
+								type="password"
+								placeholder="Confirm Password"
+								name="confirmPassword"
+								required
+								onChange={this.changeHandler}
+							></input>
+
+							<button
+								className="form-button"
+								type="submit"
+								onClick={this.handleSubmit}
+							>
+								Sign Up
+							</button>
+							<div> {this.state.errorMessage} </div>
+						</form>
+						<div className="login-footer">
+							Already have an account? <Link to="/log-in">Log In</Link>
 						</div>
 					</div>
 				</div>
-			);
-   }
+			</div>
+		);
+	}
 }
+
+const mapDispatch = (dispatch) => {
+	return {
+		auth: (email, password, method) => dispatch(auth(email, password, method)),
+	};
+};
+
+export default connect(null, mapDispatch)(Signup);
