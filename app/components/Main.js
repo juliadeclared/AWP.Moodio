@@ -7,17 +7,22 @@ class Main extends Component {
 	constructor() {
 		super();
 		this.state = {
+			// user: {},
 			loadingMessage: "Loading Video...", //figure this out later
 		};
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
 		try {
-			const user = await this.props.me();
-			// this.setState({user: user})
+			const user = this.props.me();
+			// this.setState({ user: user });
 		} catch (error) {
 			console.log(error);
 		}
+		//LOAD MODEL:
+		//if a model associated with this user exists in the db, load it
+		//else, make new model and link it to the user id
+		//don't forget to save the model at regular intervals
 
 		const classifier = knnClassifier.create();
 		const webcamElement = document.getElementById("webcam");
@@ -89,10 +94,9 @@ class Main extends Component {
 	}
 
 	render() {
-		console.log(this.props.user); //undefined
-		// if (!this.props.user.id) {
-		// 	return <Redirect to="/" />;
-		// } // this is not recognizing the user in state
+		if (!this.props.user) {
+			return <Redirect to="/" />;
+		} 
 		return (
 			<div className="main">
 				<div className="video-container">

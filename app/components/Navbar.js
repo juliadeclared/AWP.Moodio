@@ -15,21 +15,21 @@ class Navbar extends Component {
 	}
 
 	render() {
-		let isLoggedin = this.props.user
+		let isLoggedin = this.props.user.id
 
 		return (
 			<div>
-				{isLoggedin ? (
+				{isLoggedin && isLoggedin ? (
 					<nav>
 						<li>
 							<Link to="/main">Dashboard</Link>
 						</li>
-						{/* <li>
-							<a href="#" onClick={this.props.logout()}>
+						<li>
+							<a href="#" onClick={this.props.logout}>
 								{" "}
 								Sign Out
 							</a>
-						</li> */}
+						</li>
 					</nav>
 				) : (
 					<nav>
@@ -41,12 +41,6 @@ class Navbar extends Component {
 						</li>
 						<li>
 							<Link to="/sign-up">Sign Up</Link>
-						</li>
-						<li>
-							<a href="#" onClick={this.props.logout}>
-								{" "}
-								Sign Out
-							</a>
 						</li>
 					</nav>
 				)}
