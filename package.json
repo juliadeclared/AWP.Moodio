@@ -46,9 +46,13 @@
 	"dependencies": {
 		"@material-ui/core": "^4.11.2",
 		"@tensorflow/tfjs": "^2.8.2",
+		"avataaars": "^1.2.1",
 		"axios": "^0.18.0",
 		"body-parser": "^1.18.2",
 		"chalk": "^2.4.1",
+		"compression": "^1.7.4",
+		"connect-session-sequelize": "^7.0.4",
+		"dotenv": "^8.2.0",
 		"express": "^4.14.0",
 		"express-session": "^1.17.1",
 		"firebase": "^8.2.1",

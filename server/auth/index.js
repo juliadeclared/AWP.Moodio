@@ -11,6 +11,8 @@ router.put("/log-in", async (req, res, next) => {
 		} else if (!user.correctPassword(req.body.password)) {
 			res.status(401).send("Worng username and/or password");
 		} else {
+         //attach user id to session
+         req.session.userId = user.id
 			req.login(user, (err) => (err ? next(err) : res.json(user)));
 			//is req.login a passport keyword? Find out
 		}

@@ -11,10 +11,10 @@ class Main extends Component {
 		};
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		try {
-			this.props.me();
-			console.log(this.props.user);
+			const user = await this.props.me();
+			// this.setState({user: user})
 		} catch (error) {
 			console.log(error);
 		}
@@ -89,6 +89,7 @@ class Main extends Component {
 	}
 
 	render() {
+		console.log(this.props.user); //undefined
 		// if (!this.props.user.id) {
 		// 	return <Redirect to="/" />;
 		// } // this is not recognizing the user in state

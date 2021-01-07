@@ -1,17 +1,19 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const volleyball = require("volleyball");
-// const compression = require("compression");
+const compression = require("compression");
 const session = require("express-session");
 const passport = require("passport");
-// const SequelizeStore = require("connect-session-sequelize")(session.Store);
-// const db = require("./db");
-// const sessionStore = new SequelizeStore({ db });
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const db = require("./db/database");
+const sessionStore = new SequelizeStore({ db }); 
 
 
 const app = express();
 
 // passport registration
+//do these need to be in ./google?
 passport.serializeUser((user, done) => done(null, user.id));
 
 passport.deserializeUser(async (id, done) => {
@@ -35,15 +37,16 @@ app.use(express.urlencoded({ extended: true }));
 // static middleware
 app.use(express.static(path.join(__dirname, "../public")));
 
-// //session middleware with passport
-// app.use(
-// 	session({
-// 		secret: process.env.SESSION_SECRET || "my best friend is Cody",
-// 		store: sessionStore,
-// 		resave: false,
-// 		saveUninitialized: false,
-// 	})
-// );
+
+//session middleware with passport
+app.use(
+	session({
+		secret: process.env.SESSION_SECRET || "my best friend is Cody",
+		store: sessionStore,
+		resave: false,
+		saveUninitialized: false,
+	})
+);
 
 app.use(passport.initialize());
 app.use(passport.session());

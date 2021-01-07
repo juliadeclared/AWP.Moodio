@@ -4,8 +4,8 @@ const db = require("./database");
 const crypto = require("crypto");
 
 const User = db.define("user", {
-	// firstName: Sequelize.STRING,
-	// lasttName: Sequelize.STRING,
+	firstName: Sequelize.STRING,
+	lastName: Sequelize.STRING,
 	email: {
 		type: Sequelize.STRING,
 		allowNull: false,
@@ -13,7 +13,7 @@ const User = db.define("user", {
 	},
 	password: {
 		type: Sequelize.STRING,
-		allowNull: false,
+		// allowNull: false,
 		get() {
 			return () => this.getDataValue("password");
 		},
@@ -27,6 +27,11 @@ const User = db.define("user", {
 		},
 	},
 	googleId: Sequelize.STRING,
+	imgUrl: {
+		type: Sequelize.STRING,
+		defaultValue:
+			"https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurly&accessoriesType=Blank&hairColor=PastelPink&facialHairType=Blank&clotheType=ShirtCrewNeck&clotheColor=Gray01&eyeType=Wink&eyebrowType=Default&mouthType=Smile&skinColor=Light",
+	},
 });
 
 //instance methods:

@@ -1,55 +1,71 @@
-import React, { Component } from 'react'
-import { Link } from "react-router-dom"
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout } from "../redux/user"
+import { logout, me } from "../redux/user";
 
 class Navbar extends Component {
-   render() {
-      let isLoggedin = this.props.isLoggedin
+	async componentDidMount() {
+		try {
+			await this.props.me();
+		} catch (error) {
+			console.log(error);
+		}
+      console.log(this.props.user);
+      //is undefined
+	}
 
-      return (
-				<div>
-						{isLoggedin ? (
-							<nav>
-								<li>
-									<Link to="/main">Dashboard</Link>
-								</li>
-								<li>
-									<a href="#" onClick={this.props.logout()}>
-										{" "}
-										Sign Out
-									</a>
-								</li>
-							</nav>
-						) : (
-							<nav>
-								<li>
-									<Link to="/">Home</Link>
-								</li>
-								<li>
-									<Link to="/log-in">Log In</Link>
-								</li>
-								<li>
-									<Link to="/sign-up">Sign Up</Link>
-								</li>
-							</nav>
-						)}
-				</div>
-			);
-   }
+	render() {
+		let isLoggedin = this.props.user
+
+		return (
+			<div>
+				{isLoggedin ? (
+					<nav>
+						<li>
+							<Link to="/main">Dashboard</Link>
+						</li>
+						{/* <li>
+							<a href="#" onClick={this.props.logout()}>
+								{" "}
+								Sign Out
+							</a>
+						</li> */}
+					</nav>
+				) : (
+					<nav>
+						<li>
+							<Link to="/">Home</Link>
+						</li>
+						<li>
+							<Link to="/log-in">Log In</Link>
+						</li>
+						<li>
+							<Link to="/sign-up">Sign Up</Link>
+						</li>
+						<li>
+							<a href="#" onClick={this.props.logout}>
+								{" "}
+								Sign Out
+							</a>
+						</li>
+					</nav>
+				)}
+			</div>
+		);
+	}
 }
 
 const mapState = (state) => {
-   return {
-      isLoggedin: !!state.user
-      //change this to user.id
-   }
-}
+	return {
+		user: state.user,
+	};
+};
 
 const mapDispatch = (dispatch) => {
-   return {
-      logout: () => dispatch(logout())
-   }
-}
+	return {
+		logout: () => dispatch(logout()),
+		me: () => dispatch(me()),
+	};
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Navbar);

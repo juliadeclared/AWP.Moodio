@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { auth } from "../redux/user";
+import Avatar from "avataaars";
 
 class Signup extends Component {
 	constructor() {
@@ -40,10 +41,31 @@ class Signup extends Component {
 	}
 
 	render() {
+      const avatar = {
+				width: "200px",
+				height: "200px",
+				alignSelf: "center",
+         };
+         
 		return (
 			<div>
 				<div className="main">
 					<div className="login-container">
+						<Avatar
+                     style={avatar}
+							avatarStyle="Circle"
+							topType="ShortHairShortRound"
+							accessoriesType="Round"
+							hairColor="Auburn"
+							facialHairType="MoustacheFancy"
+							facialHairColor="BrownDark"
+							clotheType="ShirtVNeck"
+							clotheColor="Gray01"
+							eyeType="Side"
+							eyebrowType="AngryNatural"
+							mouthType="Smile"
+							skinColor="Brown"
+						/>
 						<form>
 							<label htmlFor="email"></label>
 							<input

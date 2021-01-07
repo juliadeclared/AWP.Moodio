@@ -5,7 +5,7 @@ const app = require("./server");
 const PORT = 8080;
 // const socketio = require("socket.io");
 
-db.sync() // if you update your db schemas, make sure you drop the tables first and then recreate them
+db.sync({ force: true}) // if you update your db schemas, make sure you drop the tables first and then recreate them
 	.then(() => {
 		console.log("db synced");
 		const server = app.listen(PORT, () =>
@@ -15,4 +15,3 @@ db.sync() // if you update your db schemas, make sure you drop the tables first 
 		// const io = socketio(server);
 		// require("./server/socket")(io);
 	});
-
