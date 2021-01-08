@@ -87,7 +87,7 @@ class Login extends Component {
 						</button>
 						<div> {this.state.errorMessage} </div>
 					</form>
-               <OAuthForm />
+					<OAuthForm authMethod="Log In" />
 					<div className="login-footer">
 						<Link to="/sign-up">Create an Account</Link>
 					</div>

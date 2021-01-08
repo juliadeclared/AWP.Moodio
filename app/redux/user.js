@@ -22,10 +22,18 @@ export const me = () => async (dispatch) => {
 	}
 };
 
-export const auth = (email, password, method) => async (dispatch) => {
+export const auth = (email, password, method, firstName, lastName, imgUrl) => async (
+	dispatch
+) => {
 	let res;
 	try {
-		res = await Axios.put(`/auth/${method}`, { email, password });
+		res = await Axios.put(`/auth/${method}`, {
+			email,
+			password,
+			firstName,
+			lastName,
+			imgUrl,
+		});
 	} catch (error) {
 		return dispatch(getUser({ error: error }));
 	}

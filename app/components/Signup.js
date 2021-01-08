@@ -2,15 +2,19 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { auth } from "../redux/user";
+import OAuthForm from "./OAuthForm";
 import Avatar from "avataaars";
 
 class Signup extends Component {
 	constructor() {
 		super();
 		this.state = {
+			firstName: "",
+			lastName: "",
 			email: "",
 			password: "",
 			confirmPassword: "",
+			imgUrl: "",
 			method: "sign-up",
 			errorMessage: "",
 		};
@@ -23,15 +27,25 @@ class Signup extends Component {
 	}
 
 	async handleSubmit(e) {
-		e.preventDefault();
+      e.preventDefault();
+      const firstName = this.state.firstName;
+      const lastName = this.state.lastName;
 		const email = this.state.email;
 		const password = this.state.password;
 		const confirmPassword = this.state.confirmPassword;
-		const method = this.state.method;
+      const method = this.state.method;
+      const imgUrl = this.state.imgUrl;
 
 		if (password === confirmPassword) {
 			try {
-				await this.props.auth(email, password, method);
+				await this.props.auth(
+					email,
+					password,
+					method,
+					firstName,
+					lastName,
+					imgUrl
+				);
 			} catch (error) {
 				this.setState({ errorMessage: error.response.data });
 			}
@@ -51,22 +65,44 @@ class Signup extends Component {
 			<div>
 				<div className="main">
 					<div className="login-container">
-						<Avatar
-                     style={avatar}
-							avatarStyle="Circle"
-							topType="ShortHairShortRound"
-							accessoriesType="Round"
-							hairColor="Auburn"
-							facialHairType="MoustacheFancy"
-							facialHairColor="BrownDark"
-							clotheType="ShirtVNeck"
-							clotheColor="Gray01"
-							eyeType="Side"
-							eyebrowType="AngryNatural"
-							mouthType="Smile"
-							skinColor="Brown"
-						/>
+						{this.state.imgUrl ? (
+							<img className="login-img" src={this.state.imgUrl} />
+						) : (
+							<Avatar
+								style={avatar}
+								avatarStyle="Circle"
+								topType="ShortHairShortRound"
+								accessoriesType="Round"
+								hairColor="Auburn"
+								facialHairType="MoustacheFancy"
+								facialHairColor="BrownDark"
+								clotheType="ShirtVNeck"
+								clotheColor="Gray01"
+								eyeType="Side"
+								eyebrowType="AngryNatural"
+								mouthType="Smile"
+								skinColor="Brown"
+							/>
+						)}
 						<form>
+							<label htmlFor="firstName"></label>
+							<input
+								type="text"
+								placeholder="First Name"
+								name="firstName"
+								required
+								onChange={this.changeHandler}
+							></input>
+
+							<label htmlFor="lastName"></label>
+							<input
+								type="text"
+								placeholder="Last Name"
+								name="lastName"
+								required
+								onChange={this.changeHandler}
+							></input>
+
 							<label htmlFor="email"></label>
 							<input
 								type="text"
@@ -94,6 +130,15 @@ class Signup extends Component {
 								onChange={this.changeHandler}
 							></input>
 
+							<label htmlFor="imgUrl"></label>
+							<input
+								type="url"
+								placeholder="Your Beautiful Face (URL)"
+								name="imgUrl"
+								required
+								onChange={this.changeHandler}
+							></input>
+
 							<button
 								className="form-button"
 								type="submit"
@@ -103,6 +148,7 @@ class Signup extends Component {
 							</button>
 							<div> {this.state.errorMessage} </div>
 						</form>
+						<OAuthForm authMethod="Sign Up"/>
 						<div className="login-footer">
 							Already have an account? <Link to="/log-in">Log In</Link>
 						</div>
@@ -115,7 +161,8 @@ class Signup extends Component {
 
 const mapDispatch = (dispatch) => {
 	return {
-		auth: (email, password, method) => dispatch(auth(email, password, method)),
+		auth: (email, password, method, firstName, lastName, imgUrl) =>
+			dispatch(auth(email, password, method, firstName, lastName, imgUrl)),
 	};
 };
 

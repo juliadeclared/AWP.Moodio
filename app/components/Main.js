@@ -2,20 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { me } from "../redux/user";
 import { Redirect } from "react-router-dom";
+import Ball from "./Ball";
 
 class Main extends Component {
 	constructor() {
 		super();
 		this.state = {
-			// user: {},
 			loadingMessage: "Loading Video...", //figure this out later
 		};
 	}
 
 	componentDidMount() {
 		try {
-			const user = this.props.me();
-			// this.setState({ user: user });
+			this.props.me();
 		} catch (error) {
 			console.log(error);
 		}
@@ -45,8 +44,7 @@ class Main extends Component {
 				// Capture an image from the web camera.
 				const img = await webcam.capture();
 
-				// Get the intermediate activation of MobileNet 'conv_preds' and pass that
-				// to the KNN classifier.
+				// Get the intermediate activation of MobileNet 'conv_preds' and pass that to the KNN classifier.
 				const activation = net.infer(img, true);
 
 				// Pass the intermediate activation to the classifier.
@@ -56,16 +54,33 @@ class Main extends Component {
 				img.dispose();
 			};
 
+			//grab 10 shots of each class
+			const tenCaptures = (classId) => {
+				document.getElementById("instructions").innerText =
+					"Rotate your face clockwise";
+				let counter = 0;
+				let interval = setInterval(() => {
+					addExample(classId);
+					counter++;
+					document.getElementById("counter").innerText = counter;
+					if (counter === 10) {
+						clearInterval(interval);
+						document.getElementById("counter").innerText = "";
+						document.getElementById("instructions").innerText = "";
+					}
+				}, 1000);
+			};
+
 			// When clicking a button, add an example for that class.
 			document
 				.getElementById("class-a")
-				.addEventListener("click", () => addExample(0));
+				.addEventListener("click", () => tenCaptures(0));
 			document
 				.getElementById("class-b")
-				.addEventListener("click", () => addExample(1));
+				.addEventListener("click", () => tenCaptures(1));
 			document
 				.getElementById("class-c")
-				.addEventListener("click", () => addExample(2));
+				.addEventListener("click", () => tenCaptures(2));
 
 			while (true) {
 				if (classifier.getNumClasses() > 0) {
@@ -89,15 +104,11 @@ class Main extends Component {
 				await tf.nextFrame();
 			}
 		}
-		this.setState({ loadingMessage: "" });
 		app();
 	}
 
 	render() {
-		if (!this.props.user) {
-			return <Redirect to="/" />;
-		} 
-		return (
+		return this.props.user ? (
 			<div className="main">
 				<div className="video-container">
 					{this.state.loadingMessage}
@@ -106,17 +117,21 @@ class Main extends Component {
 						playsInline
 						muted
 						id="webcam"
-						width="500"
-						height="500"
+						width="400"
+						height="400"
 					></video>
 					<div id="console">Mood</div>
 				</div>
+				<div id="instructions"></div>
+				<div id="counter"></div>
 				<div className="button-contaier">
-					<button id="class-a">neutral</button>
-					<button id="class-b">happy</button>
-					<button id="class-c">sad</button>
+					<button id="class-a">Neutral</button>
+					<button id="class-b">Happy</button>
+					<button id="class-c">Sad</button>
 				</div>
 			</div>
+		) : (
+			<Redirect to="/" />
 		);
 	}
 }

@@ -12,12 +12,20 @@ nav {
 	color: #e8b5a8;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: space-around;
 	height: 80px;
 	padding: 12px 20px;
 	font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 	font-size: 18pt;
 	font-weight: bold;
+}
+
+.user {
+   display: flex;
+   align-items: center;
+   flex-direction: row;
+   justify-content: space-between;
+   height: 80px;
 }
 
 a {
@@ -59,8 +67,8 @@ body {
 
 .video-container {
 	position: relative;
-	width: 550px;
-	height: 550px;
+	width: 450px;
+	height: 450px;
 }
 
 video {
@@ -129,6 +137,20 @@ button:active {
 	padding: 12px 12px;
 }
 
+#counter {
+   text-align: center;
+   color: #ffffff;
+   font-size: 30px;
+   font-weight: 600;
+}
+
+#instructions {
+   text-align: center;
+   color: #ffffff;
+   font-size: 24px;
+   font-weight: 600;
+}
+
 h1 {
 	font-weight: 600;
 	text-align: center;
@@ -190,9 +212,25 @@ input {
 }
 
 .avatas {
-   display: flex;
-   flex-direction: row;
-   justify-content: center;
-   align-content: center;
-   flex-wrap: wrap;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+	flex-wrap: wrap;
+}
+
+.nav-img {
+	object-fit: cover;
+	border-radius: 50%;
+	height: 100px;
+   width: 100px;
+   margin: 10px;
+}
+
+.login-img {
+	object-fit: cover;
+	border-radius: 50%;
+	height: 200px;
+	width: 200px;
+	align-self: center;
 }

@@ -1,9 +1,9 @@
 import React from "react";
 
-const OAuthForm = () => (
+const OAuthForm = (props) => (
 	<form method="get" action="/auth/google">
 		<button type="submit" className="form-button">
-			Login with Google
+			{props.authMethod} with Google
 		</button>
 	</form>
 );
