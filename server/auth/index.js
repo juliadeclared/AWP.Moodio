@@ -11,8 +11,8 @@ router.put("/log-in", async (req, res, next) => {
 		} else if (!user.correctPassword(req.body.password)) {
 			res.status(401).send("Worng username and/or password");
 		} else {
-         //attach user id to session
-         req.session.userId = user.id
+			//attach user id to session
+			req.session.userId = user.id;
 			req.login(user, (err) => (err ? next(err) : res.json(user)));
 			//is req.login a passport keyword? Find out
 		}
@@ -23,15 +23,15 @@ router.put("/log-in", async (req, res, next) => {
 
 router.put("/sign-up", async (req, res, next) => {
 	try {
-      const user = await User.create(req.body);
-      req.login(user, err => (err ? next(err) : res.json(user)))
+		const user = await User.create(req.body);
+		req.login(user, (err) => (err ? next(err) : res.json(user)));
 	} catch (error) {
-      if (error.name === "SequelizeUniqueConstraintError") {
-				res.status(401).send("User already exists");
-			} else {
-				next(error);
-			}
-   }
+		if (error.name === "SequelizeUniqueConstraintError") {
+			res.status(401).send("User already exists");
+		} else {
+			next(error);
+		}
+	}
 });
 
 router.post("/log-out", (req, res) => {

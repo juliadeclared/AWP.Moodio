@@ -21,7 +21,7 @@ class Main extends Component {
 		//LOAD MODEL:
 		//if a model associated with this user exists in the db, load it
 		//else, make new model and link it to the user id
-		//don't forget to save the model at regular intervals
+		//save the model at regular intervals
 
 		const classifier = knnClassifier.create();
 		const webcamElement = document.getElementById("webcam");

@@ -27,14 +27,14 @@ class Signup extends Component {
 	}
 
 	async handleSubmit(e) {
-      e.preventDefault();
-      const firstName = this.state.firstName;
-      const lastName = this.state.lastName;
+		e.preventDefault();
+		const firstName = this.state.firstName;
+		const lastName = this.state.lastName;
 		const email = this.state.email;
 		const password = this.state.password;
 		const confirmPassword = this.state.confirmPassword;
-      const method = this.state.method;
-      const imgUrl = this.state.imgUrl;
+		const method = this.state.method;
+		const imgUrl = this.state.imgUrl;
 
 		if (password === confirmPassword) {
 			try {
@@ -50,17 +50,17 @@ class Signup extends Component {
 				this.setState({ errorMessage: error.response.data });
 			}
 		} else {
-         this.setState({errorMessage: "Passwords must match"})
-      }
+			this.setState({ errorMessage: "Passwords must match" });
+		}
 	}
 
 	render() {
-      const avatar = {
-				width: "200px",
-				height: "200px",
-				alignSelf: "center",
-         };
-         
+		const avatar = {
+			width: "200px",
+			height: "200px",
+			alignSelf: "center",
+		};
+
 		return (
 			<div>
 				<div className="main">
@@ -148,7 +148,7 @@ class Signup extends Component {
 							</button>
 							<div> {this.state.errorMessage} </div>
 						</form>
-						<OAuthForm authMethod="Sign Up"/>
+						<OAuthForm authMethod="Sign Up" />
 						<div className="login-footer">
 							Already have an account? <Link to="/log-in">Log In</Link>
 						</div>

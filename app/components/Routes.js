@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route, Link, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import history from "../history";
 
 import Main from "./Main"
@@ -7,8 +7,6 @@ import HomePage from "./HomePage"
 import Login from "./Login";
 import Signup from "./Signup";
 import Navbar from "./Navbar"
-
-
 
 const Routes = () => {
 	return (
