@@ -32,8 +32,8 @@ class Main extends Component {
 			console.log("Loading mobilenet..");
 			// Load the model.
 			net = await mobilenet.load();
-         console.log("Successfully loaded model");
-         
+			console.log("Successfully loaded model");
+
 			// Create an object from Tensorflow.js data API which could capture image
 			// from the web camera as Tensor.
 			const webcam = await tf.data.webcam(webcamElement);
@@ -103,9 +103,9 @@ class Main extends Component {
 				// fire.
 				await tf.nextFrame();
 			}
-      }
-      app();
-      this.setState({ loadingMessage: "" });
+		}
+		app();
+		this.setState({ loadingMessage: "" });
 	}
 
 	render() {

@@ -11,7 +11,4 @@ db.sync() // if you update your db schemas, make sure you drop the tables first 
 		const server = app.listen(PORT, () =>
 			console.log(`listening on port ${PORT}`)
 		);
-		// set up our socket control center
-		// const io = socketio(server);
-		// require("./server/socket")(io);
 	});

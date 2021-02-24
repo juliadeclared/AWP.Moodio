@@ -11,7 +11,6 @@ class Login extends Component {
 		this.state = {
 			email: "",
 			password: "",
-			//is this safe?
 			method: "log-in",
 			errorMessage: "",
 		};
@@ -39,10 +38,10 @@ class Login extends Component {
 		const error = this.props.error;
 		const avatar = {
 			width: "200px",
-         height: "200px",
-         alignSelf: "center"
-      };
-      
+			height: "200px",
+			alignSelf: "center",
+		};
+
 		return (
 			<div className="main">
 				<div className="login-container">
