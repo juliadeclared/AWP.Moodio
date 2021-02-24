@@ -97,12 +97,6 @@ class Login extends Component {
 	}
 }
 
-// const mapState = state => {
-//    return {
-
-//    }
-// }
-
 const mapDispatch = (dispatch) => {
 	return {
 		auth: (email, password, method) => dispatch(auth(email, password, method)),
